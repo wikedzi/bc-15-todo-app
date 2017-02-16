@@ -1,3 +1,4 @@
+python==3.6.0
 Flask==0.12
 Flask-PyMongo==0.3.0
 Flask-RESTful==0.2.12
@@ -10,3 +11,5 @@ itsdangerous==0.24
 pymongo==3.4
 pytz==2014.4
 six==1.10.0
+setuptools==34.2.0
+pip-9.0.1
