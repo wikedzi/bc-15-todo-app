@@ -1,0 +1,38 @@
+{% extends "dashboard.html" %}
+{% block title %}Cards{% endblock %}
+
+{% block css %}
+  {{ super() }}
+    <link href="{{ url_for('static', filename='assets/css/user_collection.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block bottomJS %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='assets/js/ie-emulation-modes-warning.js') }}"></script>
+{% endblock %}
+
+{% block collection %}
+  <div class="row">
+      <div class="col-md-4 user_collection">
+        <p> Add Todo Item </p>
+        <p>
+          <span class="label label-warning"> {{session['collection'][coll]['label']}}</span>
+          <span class="label label-primary"> {{session['collection'][coll]['cards'][cad]['label']}}</span>
+        </p>
+        <form class="form-horizontal" action="{{ url_for('add_item',collection=coll,card=cad) }}" method=post>
+          <div class="form-group">
+            <div class="col-md-12">
+              <input type="text" class="form-control" name = "item" id="item" placeholder="Item Label">
+              <input type="hidden" name = "collection" value="{{coll}}">
+              <input type="hidden" name = "card" value="{{cad}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-10">
+              <button type="submit" class="btn btn-primary">Add Item</button>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+{% endblock %}

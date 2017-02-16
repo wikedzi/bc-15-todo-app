@@ -1,0 +1,3 @@
+[submodule "venv/app/template/bootstrap"]
+	path = venv/app/template/bootstrap
+	url = https://github.com/twbs/bootstrap.git

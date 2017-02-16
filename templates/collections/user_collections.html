@@ -1,0 +1,87 @@
+{% extends "dashboard.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block css %}
+  {{ super() }}
+    <link href="{{ url_for('static', filename='assets/css/user_collection.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block bottomJS %}
+  {{ super() }}
+  <script type="text/javascript">
+      $( function() {
+        $(".accordion" ).accordion();
+      } );
+
+      $('input:checkbox').change(function(){
+            //var url = document.location.origin + $(this).attr("data-url");
+            var uri = $(this).attr("data-url");
+            $.ajax({
+              method: "GET",
+              url: uri
+            })
+        });
+  </script>
+{% endblock %}
+
+{% block collection %}
+  <div class="row" style="width:5000px" >
+    {% if session['collection']|length is equalto 0  %}
+      <div class="user_collection">
+        <a href="{{ url_for('add_collection') }}" class="btn btn-primary">Create a new Collection</a>
+      </div>
+    {% else %}
+
+      {% for coll  in session['collection'] %}
+        {% set i = session['collection'].index(coll) %}
+        <div class=" user_collection" style="width:300px" >
+          <p class="col-md-12 btn btn-default"><b>{{ coll['label'] }}</b></p>
+          <p>
+            <a href="{{ url_for('add_card',collection=i) }}" class="btn btn-default btn-xs">
+              <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Card
+            </a> | 
+            <a href="{{ url_for('delete_collection',collection=i) }}" class="btn btn-info btn-xs">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Collection
+            </a>
+          </p>
+          <p><b><i>Cards</i></b></p>
+          {% if coll['cards']|length is equalto 0  %}
+          {% else %}
+            <div class="accordion">
+             {% for cad in coll['cards'] %}
+              {% set j = coll['cards'].index(cad) %}
+              <h3>
+                {{ cad['label'] }}
+              </h3>
+              <div>
+                <a class="btn btn-default btn-xs" href="{{ url_for('add_item',collection=i, card=j) }}">
+                  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Item
+                </a> | 
+                <a class="btn btn-default btn-xs" href="{{ url_for('move_card',collection=i, card=j) }}">
+                  <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Card
+                </a> | 
+                <a class="btn btn-default btn-xs" href="{{ url_for('delete_card',collection=i,card=j) }}">
+                  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Card
+                </a>
+
+                <ul>
+                  {% if cad['items']|length is not equalto 0  %}
+                    {% for itm in cad['items'] %}
+                      {% set k = cad['items'].index(itm) %}
+                      <li>{{ itm['label']}} 
+                        <input type="checkbox" id="inlineCheckbox1" value="option1" class="done" data-url="{{ url_for('undo_item',collection=i,card=j,item=k) }}" {% if itm['done'] is equalto True %} checked {% endif %}>Done
+                        <a href="{{ url_for('delete_item',collection=i,card=j,item=k) }}"> <span class="glyphicon glyphicon-trash" aria-hidden="true">Delete</a>
+                      </li>
+
+                    {% endfor %}
+                  {% endif %}
+                </ul>
+              </div>
+             {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endblock %}

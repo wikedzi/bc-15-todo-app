@@ -1,0 +1,60 @@
+{% extends "core.html" %}
+{% block title %}Login{% endblock %}
+
+{% block css %}
+  {{ super() }}
+    <link href="{{ url_for('static', filename='assets/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/signin.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/cover.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block topJS %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='assets/js/ie-emulation-modes-warning.js') }}"></script>
+{% endblock %}
+
+{% block bottomJS %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='assets/js/ie-emulation-modes-warning.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">ToDo</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="{{ url_for('signup') }}">Signup</a></li>
+                  <li><a href="{{ url_for('index') }}">Home</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="inner cover">
+              <form class="form-signin" action="{{ url_for('login') }}" method=post>
+                  <h2 class="form-signin-heading">Sign in</h2>
+                  <label for="inputEmail" class="sr-only">Email address</label>
+                  <input type="email" name = "email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                  <label for="inputPassword" class="sr-only">Password</label>
+                  <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                  <div class="checkbox">
+                    <label>
+                    </label>
+                  </div>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+              </form>
+          </div>
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>Powered by <a href="http://andela.com">Andela</a>, implemented by <a href="https://twitter.com/wikedzi">@wikedzi</a>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

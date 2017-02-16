@@ -1,0 +1,62 @@
+{% extends "core.html" %}
+{% block css %}
+  {{ super() }}
+    <link href="{{ url_for('static', filename='assets/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/navbar-fixed-top.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/jquery-ui.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block topJS %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='assets/js/ie-emulation-modes-warning.js') }}"></script>
+{% endblock %}
+
+{% block bottomJS %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='assets/js/jquery-ui.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/js/ie-emulation-modes-warning.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url_for('dashboard') }}">ToDo List</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <li><a href="{{ url_for('index') }}">Dashboard</a></li>
+        </li>
+        <li class="dropdown">
+          <li><a href="{{ url_for('add_collection') }}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add Collection</a></li>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ session['user']['firstname']}} {{ session['user']['lastname']}}<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{ url_for('update_user') }}">Change Password</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {% block collection %}
+
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

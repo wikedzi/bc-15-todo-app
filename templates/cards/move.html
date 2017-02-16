@@ -1,0 +1,45 @@
+{% extends "dashboard.html" %}
+{% block title %}Move Cards{% endblock %}
+
+{% block css %}
+  {{ super() }}
+    <link href="{{ url_for('static', filename='assets/css/user_collection.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block bottomJS %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='assets/js/ie-emulation-modes-warning.js') }}"></script>
+{% endblock %}
+
+{% block collection %}
+  <div class="row">
+      <div class="col-md-4 user_collection">
+        <p> Current Collection <span class="label label-warning"> {{session['collection'][coll]['label']}} </span> </p>
+        <form class="form-horizontal" action="{{ url_for('move_card',collection=coll,card=cad) }}" method=post>
+          <div class="form-group">
+            <div class="col-md-12">
+              <p class="form-control" id="card" > Card | <b>{{session['collection'][coll]['cards'][cad]['label']}}</b>  </p>
+              <input type="hidden" name = "collection" value="{{coll}}">
+              <input type="hidden" name = "card" value="{{cad}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12">
+              <select class="form-control" name="new_collection">
+                {% for collection in session['collection'] %}
+                  {% set j = session['collection'].index(collection) %}
+                  <option value="{{ j }}">{{ collection['label'] }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-10">
+              <button type="submit" class="btn btn-primary">Move Card</button>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+{% endblock %}

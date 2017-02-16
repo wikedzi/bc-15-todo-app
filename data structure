@@ -1,0 +1,15 @@
+
+[
+{
+	user:{username:,password},
+	collection:[
+			{
+				name:"",
+				description:"",
+				items:[],
+			}
+
+		]
+}
+
+]

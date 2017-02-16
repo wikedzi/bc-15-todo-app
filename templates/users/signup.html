@@ -1,0 +1,86 @@
+{% extends "core.html" %}
+{% block title %}Signup{% endblock %}
+
+{% block css %}
+  {{ super() }}
+    <link href="{{ url_for('static', filename='assets/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/signin.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='assets/css/cover.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block topJS %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='assets/js/ie-emulation-modes-warning.js') }}"></script>
+{% endblock %}
+
+{% block bottomJS %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='assets/js/ie-emulation-modes-warning.js') }}"></script>
+
+  <script type="text/javascript">
+    var password = document.getElementById("password")
+    var confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword(){
+      if(password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+      } else {
+        confirm_password.setCustomValidity('');
+      }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+  </script>
+
+{% endblock %}
+
+{% block content %}
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">ToDo</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+                  <li><a href="{{ url_for('login') }}">Login</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="inner cover">
+              <form class="form-signin" action="{{ url_for('signup') }}" method=post>
+                  <h2 class="form-signin-heading">Sign up</h2>
+                  <label for="fname" class="sr-only">Firstname</label>
+                  <input type="text" name = "fname" id="fname" class="form-control" placeholder="Firstname" required autofocus>
+
+                  <label for="lname" class="sr-only">Lastname</label>
+                  <input type="text" name="lname" id="lname" class="form-control" placeholder="Lastname" required autofocus>
+
+                  <label for="inputEmail" class="sr-only">Email address</label>
+                  <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+
+                  <label for="password" class="sr-only">Password</label>
+                  <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+
+                  <label for="confirm_password" class="sr-only">Confirm Password</label>
+                  <input type="password" id="confirm_password" class="form-control" placeholder="Confirm Password" required>
+
+                  <div class="checkbox">
+                    <label>
+                    </label>
+                  </div>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+              </form>
+          </div>
+          <div class="mastfoot">
+            <div class="inner">
+              <p>Powered by <a href="http://andela.com">Andela</a>, implemented by <a href="https://twitter.com/wikedzi">@wikedzi</a>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
